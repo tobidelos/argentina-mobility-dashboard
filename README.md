@@ -1,4 +1,4 @@
-# 🚀 Observatorio Analítico de Movilidad Urbana (ETL & BI)
+# Observatorio Analítico de Movilidad Urbana (ETL & BI)
 
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
@@ -8,7 +8,7 @@
 
 Un pipeline analítico de extremo a extremo (End-to-End) diseñado con estándares de **Ingeniería de Datos** y **Business Intelligence** para procesar, limpiar y analizar el flujo masivo del transporte público en Argentina y su correlación meteorológica.
 
-## 💼 Problema de negocio y aplicación corporativa
+## Problema de negocio y aplicación corporativa
 
 A nivel empresarial y estatal (especialmente en industrias como **Transporte, Logística, Smart Cities y Políticas Públicas**), este desarrollo resuelve problemas críticos de toma de decisiones basadas en datos masivos:
 
@@ -21,7 +21,7 @@ Para reflejar los retos del mundo real, este proyecto utiliza datos oficiales de
 *   **Decisiones basadas en evidencia (Resiliencia Climática)**: El sistema cuenta con algoritmos estadísticos que calculan la resiliencia del transporte público ante variables exógenas. Permite a un ente gubernamental o empresa concesionaria medir exactamente cómo el clima extremo (lluvias o calor >30°C) impacta en la facturación y el flujo de la demanda.
 *   **Democratización del dato (BI)**: Finalmente, inyecta los datos refinados en una base relacional (SQLite) y los expone mediante un **Dashboard interactivo**. Esto permite que stakeholders no-técnicos (Gerentes de Operaciones, Intendentes, Analistas) consuman los insights de forma visual y segmentada (por provincia o municipio) en tiempo real.
 
-## 🏗️ Arquitectura del proyecto
+## Arquitectura del proyecto
 
 El flujo se divide en fases orquestadas modularmente, separando la lógica funcional de procesamiento (`main.py`) de la herramienta analítica de visualización (`dashboard.py`).
 
@@ -37,12 +37,12 @@ graph TD
     H -->|Métricas Dinámicas| I[Streamlit Web App]
 ```
 
-## 🛠️ Tecnologías y complejidad
+## Tecnologías y complejidad
 - **Eficiencia espacial/temporal**: Todo el pipeline fue diseñado utilizando operaciones vectorizadas (`pandas`, `numpy`) para procesar medio millón de registros con una complejidad **O(1)** a nivel iterador, evitando los costosos cuellos de botella de los bucles `for` tradicionales.
 - **Estructura modular orientada a objetos (POO)**: Implementación de *Separation of Concerns* (SoC) mediante clases independientes (`DataExtractor`, `DataTransformer`, `DataLoader`) para garantizar mantenibilidad.
 - **Sistema Reactivo y Caché**: El frontend renderiza los cálculos agregados (medias móviles, market-share) en milisegundos gracias al uso de decoradores `@st.cache_data`, reteniendo estructuras en memoria RAM y reduciendo drásticamente la latencia de consultas (queries) repetitivas hacia la base de datos.
 
-## 📁 Estructura del repositorio
+## Estructura del repositorio
 
 ```text
 .
@@ -57,7 +57,7 @@ graph TD
 └── README.md
 ```
 
-## 🚀 Cómo ejecutar el proyecto
+## Cómo ejecutar el proyecto
 
 Existen dos formas de desplegar el proyecto: usando contenedores (recomendado para entornos de producción/evaluación) o mediante instalación local clásica.
 
@@ -101,3 +101,7 @@ streamlit run dashboard.py
 ```
 
 ---
+<p align="center" style="font-size: 12px; color: gray;">
+  Desarrollado por <a href="https://github.com/tobidelos" target="_blank" style="font-weight: bold; color: #6366f1;">ttobidelos</a>
+</p>
+
