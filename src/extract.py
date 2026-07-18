@@ -1,12 +1,10 @@
 import pandas as pd
 import requests
 import os
-import logging
+from src.logger import get_logger
 from typing import Dict, Any, Optional
 
-# Configuración de logging para monitorear el proceso
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 class DataExtractor:
     """

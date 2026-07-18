@@ -5,6 +5,8 @@ import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
 
+from src.config import DB_PATH
+
 # --- CONFIGURACIÓN DE LA PÁGINA ---
 st.set_page_config(
     page_title="Observatorio de movilidad urbana",
@@ -53,7 +55,7 @@ BLUE_PALETTE = ['#00E5FF', '#48CAE4', '#90E0EF', '#00B4D8', '#0077B6', '#80D8FF'
 @st.cache_data
 def load_and_prep_data():
     try:
-        conn = sqlite3.connect("movilidad_urbana.db")
+        conn = sqlite3.connect(str(DB_PATH))
         # Cache-buster: recarga forzada tras descargar el clima de los 365 días
         df = pd.read_sql("SELECT * FROM usos_vs_clima", conn)
         conn.close()

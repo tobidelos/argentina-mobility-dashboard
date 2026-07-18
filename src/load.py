@@ -1,10 +1,9 @@
 import pandas as pd
 import sqlite3
-import logging
+from src.logger import get_logger
 from typing import Optional
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 class DataLoader:
     """

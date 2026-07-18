@@ -16,4 +16,4 @@ COPY . .
 EXPOSE 8501
 
 # Comando por defecto para arrancar el Dashboard
-CMD ["streamlit", "run", "dashboard.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "src/dashboard.py", "--server.port=8501", "--server.address=0.0.0.0"]

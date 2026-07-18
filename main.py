@@ -1,20 +1,13 @@
-import logging
 import sys
 
 # Importamos las clases de nuestros módulos modulares
-from extract import DataExtractor
-from transform import DataTransformer
-from load import DataLoader
+from src.extract import DataExtractor
+from src.transform import DataTransformer
+from src.load import DataLoader
+from src.logger import get_logger
+from src.config import TRANSPORT_CSV_PATH, DB_PATH, API_LAT, API_LON, START_DATE, END_DATE
 
-# Configuración central del logger para todo el orquestador
-logging.basicConfig(
-    level=logging.INFO, 
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.StreamHandler(sys.stdout)
-    ]
-)
-logger = logging.getLogger("ETL_Orchestrator")
+logger = get_logger("ETL_Orchestrator")
 
 def run_etl_pipeline():
     """
@@ -31,17 +24,17 @@ def run_etl_pipeline():
     extractor = DataExtractor()
     
     # 1.1 Extraer CSV Local
-    df_raw_transporte = extractor.extract_transport_data("dat-ab-usos-2025.csv")
+    df_raw_transporte = extractor.extract_transport_data(str(TRANSPORT_CSV_PATH))
     if df_raw_transporte is None:
         logger.critical("Transport data extraction failed. Terminating ETL.")
         return
         
-    # 1.2 Extraer Clima vía API (Todo el año 2025)
+    # 1.2 Extraer Clima vía API (Todo el año)
     weather_json = extractor.extract_weather_data(
-        lat=-34.6037, 
-        lon=-58.3816, 
-        start_date="2025-01-01", 
-        end_date="2025-12-31"
+        lat=API_LAT, 
+        lon=API_LON, 
+        start_date=START_DATE, 
+        end_date=END_DATE
     )
     if not weather_json:
         logger.critical("Weather data extraction failed. Terminating ETL.")
@@ -70,9 +63,7 @@ def run_etl_pipeline():
     # FASE 3: LOAD
     # ---------------------------------------------------------
     logger.info("\n--- PHASE 3: LOAD ---")
-    # Configuramos el data warehouse local en un archivo SQLite
-    db_filename = "movilidad_urbana.db"
-    loader = DataLoader(db_path=db_filename)
+    loader = DataLoader(db_path=str(DB_PATH))
     
     success = loader.load_to_sqlite(df_final, table_name="usos_vs_clima", if_exists="replace")
     
@@ -81,7 +72,7 @@ def run_etl_pipeline():
     # ---------------------------------------------------------
     logger.info("\n" + "="*50)
     if success:
-        logger.info(f"ETL Pipeline completed SUCCESSFULLY! Data is ready in '{db_filename}'")
+        logger.info(f"ETL Pipeline completed SUCCESSFULLY! Data is ready in '{DB_PATH.name}'")
     else:
         logger.error("ETL Pipeline failed during the Load phase.")
     logger.info("="*50)

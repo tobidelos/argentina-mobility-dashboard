@@ -1,10 +1,8 @@
 import pandas as pd
-import logging
 from typing import Dict, Any, Optional
+from src.logger import get_logger
 
-# Configuración del logger
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 class DataTransformer:
     """
@@ -118,7 +116,7 @@ class DataTransformer:
 
 if __name__ == "__main__":
     # Test local de transformación
-    from extract import DataExtractor
+    from src.extract import DataExtractor
     
     # 1. Extracción
     extractor = DataExtractor()

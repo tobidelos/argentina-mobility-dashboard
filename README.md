@@ -46,14 +46,22 @@ graph TD
 
 ```text
 .
-├── extract.py            # Fase 1: Extracción CSV y consumo asíncrono de API REST
-├── transform.py          # Fase 2: Limpieza (Encoding, Nulls) y Data Merging
-├── load.py               # Fase 3: Ingesta relacional en Data Warehouse (SQLite)
-├── main.py               # Orquestador Principal (ETL central)
-├── dashboard.py          # Fase 4: Despliegue de Business Intelligence (Streamlit)
-├── Dockerfile            # Configuración para contenerización Cloud-ready
-├── .dockerignore         # Ignora archivos pesados y cachés temporales
-├── requirements.txt      # Manifiesto de dependencias Python
+├── src/
+│   ├── config.py             # Configuración centralizada (paths globales)
+│   ├── logger.py             # Instancia estándar de registro (logging)
+│   ├── extract.py            # Fase 1: Extracción CSV y API REST
+│   ├── transform.py          # Fase 2: Limpieza (Encoding, Nulls) y Merge
+│   ├── load.py               # Fase 3: Ingesta en Data Warehouse local (SQLite)
+│   └── dashboard.py          # Fase 4: Despliegue de Business Intelligence (Streamlit)
+├── tests/
+│   └── test_etl.py           # Pruebas Unitarias de las transformaciones
+├── data/                     # Data Lake local (CSV crudo y SQLite)
+├── main.py                   # Orquestador Principal (ETL central)
+├── run.bat                   # Ejecutable rápido interactivo para Windows
+├── Dockerfile                # Configuración para contenerización Cloud-ready
+├── .dockerignore             # Ignora archivos pesados y cachés temporales
+├── .gitignore                # Reglas de exclusión para Git (venv, bases de datos)
+├── requirements.txt          # Manifiesto de dependencias Python
 └── README.md
 ```
 
@@ -97,7 +105,7 @@ python main.py
 ### 3. Lanzar el Dashboard Analítico (BI)
 Para visualizar los insights extraídos:
 ```bash
-streamlit run dashboard.py
+streamlit run src/dashboard.py
 ```
 
 ---
