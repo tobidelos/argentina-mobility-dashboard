@@ -1,0 +1,10 @@
+venv/
+__pycache__/
+*.pyc
+.env
+.git/
+scratch/
+
+# Datos pesados - No subir a GitHub
+*.csv
+*.db
